@@ -1,0 +1,1070 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pembelajaran Kristen Interaktif</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen">
+    <!-- Loading Screen -->
+    <div id="loadingScreen" class="loading-screen">
+        <div class="loading-cross">
+            <div class="cross-vertical"></div>
+            <div class="cross-horizontal"></div>
+        </div>
+        
+        <div class="loading-text">Pembelajaran Kristen</div>
+        
+        <div class="loading-verse">
+            "Firman-Mu itu pelita bagi kakiku dan terang bagi jalanku"<br>
+            <span style="font-size: 14px; opacity: 0.8;">- Mazmur 119:105</span>
+        </div>
+        
+        <div class="loading-progress">
+            <div class="loading-bar"></div>
+        </div>
+        
+        <div class="loading-percentage" id="loadingPercentage">0%</div>
+        
+        <div class="loading-dots">
+            <div class="loading-dot"></div>
+            <div class="loading-dot"></div>
+            <div class="loading-dot"></div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div id="mainContent" class="main-content">
+        <!-- Header -->
+        <header class="bg-white shadow-lg sticky top-0 z-50">
+            <div class="container mx-auto px-2 sm:px-4 py-3 sm:py-4 lg:py-6">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center space-x-2 sm:space-x-3">
+                        <div class="w-7 h-7 sm:w-8 sm:h-8 md:w-10 md:h-10 bg-blue-600 rounded-full flex items-center justify-center">
+                            <span class="text-white font-bold text-sm sm:text-base md:text-lg">✝</span>
+                        </div>
+                        <h1 class="text-base sm:text-lg md:text-xl lg:text-2xl font-bold text-gray-800 truncate">Pembelajaran Kristen</h1>
+                    </div>
+                    <nav class="hidden md:flex space-x-1 lg:space-x-2 xl:space-x-4">
+                        <button onclick="showSection('beranda')" class="nav-btn active text-blue-600 font-semibold px-2 lg:px-3 py-1.5 lg:py-2 rounded-lg transition-colors text-xs lg:text-sm xl:text-base">Beranda</button>
+                        <button onclick="showSection('sejarah')" class="nav-btn text-gray-600 hover:text-blue-600 px-2 lg:px-3 py-1.5 lg:py-2 rounded-lg transition-colors text-xs lg:text-sm xl:text-base">Sejarah</button>
+                        <button onclick="showSection('alkitab')" class="nav-btn text-gray-600 hover:text-blue-600 px-2 lg:px-3 py-1.5 lg:py-2 rounded-lg transition-colors text-xs lg:text-sm xl:text-base">Alkitab</button>
+                        <button onclick="showSection('hukum')" class="nav-btn text-gray-600 hover:text-blue-600 px-2 lg:px-3 py-1.5 lg:py-2 rounded-lg transition-colors text-xs lg:text-sm xl:text-base">Hukum</button>
+                        <button onclick="showSection('doktrin')" class="nav-btn text-gray-600 hover:text-blue-600 px-2 lg:px-3 py-1.5 lg:py-2 rounded-lg transition-colors text-xs lg:text-sm xl:text-base">Doktrin</button>
+                        <button onclick="showSection('kuis')" class="nav-btn text-gray-600 hover:text-blue-600 px-2 lg:px-3 py-1.5 lg:py-2 rounded-lg transition-colors text-xs lg:text-sm xl:text-base">Kuis</button>
+                    </nav>
+                    <button onclick="toggleMobileMenu()" class="md:hidden text-gray-600 p-1.5 sm:p-2 hover:bg-gray-100 rounded-lg transition-colors">
+                        <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                </div>
+                <!-- Mobile Menu -->
+                <div id="mobileMenu" class="hidden md:hidden mt-2 sm:mt-3 space-y-1 bg-gray-50 rounded-lg p-2">
+                    <button onclick="showSection('beranda')" class="block w-full text-left py-2 sm:py-2.5 px-3 sm:px-4 text-blue-600 font-semibold rounded-lg text-sm">Beranda</button>
+                    <button onclick="showSection('sejarah')" class="block w-full text-left py-2 sm:py-2.5 px-3 sm:px-4 text-gray-600 rounded-lg hover:bg-white transition-colors text-sm">Sejarah</button>
+                    <button onclick="showSection('alkitab')" class="block w-full text-left py-2 sm:py-2.5 px-3 sm:px-4 text-gray-600 rounded-lg hover:bg-white transition-colors text-sm">Alkitab</button>
+                    <button onclick="showSection('hukum')" class="block w-full text-left py-2 sm:py-2.5 px-3 sm:px-4 text-gray-600 rounded-lg hover:bg-white transition-colors text-sm">Hukum</button>
+                    <button onclick="showSection('doktrin')" class="block w-full text-left py-2 sm:py-2.5 px-3 sm:px-4 text-gray-600 rounded-lg hover:bg-white transition-colors text-sm">Doktrin</button>
+                    <button onclick="showSection('kuis')" class="block w-full text-left py-2 sm:py-2.5 px-3 sm:px-4 text-gray-600 rounded-lg hover:bg-white transition-colors text-sm">Kuis</button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Back Button -->
+        <div id="backButton" class="fixed top-20 left-4 md:left-6 z-40 hidden transition-all duration-300 ease-out" style="transform: translateX(-100px); opacity: 0;">
+            <button onclick="goBackToHome()" class="group bg-white/90 backdrop-blur-sm text-gray-700 p-2 md:p-3 rounded-xl shadow-lg border border-gray-200/50 hover:bg-white hover:shadow-xl transition-all duration-300 transform hover:scale-105">
+                <div class="flex items-center space-x-2">
+                    <svg class="w-4 h-4 md:w-5 md:h-5 group-hover:-translate-x-0.5 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                    </svg>
+                    <span class="hidden sm:inline text-sm md:text-base font-medium">Kembali</span>
+                </div>
+                <!-- Tooltip for mobile -->
+                <div class="sm:hidden absolute left-full ml-2 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white px-2 py-1 rounded text-xs whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none">
+                    Kembali ke Beranda
+                </div>
+            </button>
+        </div>
+
+        <!-- Main Content -->
+        <main class="container mx-auto px-2 sm:px-4 md:px-6 lg:px-8 py-3 sm:py-4 md:py-6 lg:py-8 max-w-7xl">
+            <!-- Beranda Section -->
+            <section id="beranda" class="section-content active fade-in">
+                <!-- Hero Section -->
+                <div class="hero-bg rounded-xl sm:rounded-2xl lg:rounded-3xl text-white p-4 sm:p-6 md:p-8 lg:p-12 mb-6 sm:mb-8 md:mb-12 lg:mb-16 relative overflow-hidden">
+                    <div class="relative z-10 text-center">
+                        <div class="float-animation inline-block mb-3 sm:mb-4 md:mb-6">
+                            <div class="w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 lg:w-24 lg:h-24 bg-white bg-opacity-20 rounded-full flex items-center justify-center mx-auto pulse-glow">
+                                <span class="text-xl sm:text-2xl md:text-3xl lg:text-4xl">✝️</span>
+                            </div>
+                        </div>
+                        <h2 class="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold mb-3 sm:mb-4 md:mb-6 slide-up leading-tight">
+                            Jelajahi <span class="text-yellow-300">Iman</span> Anda
+                        </h2>
+                        <p class="text-sm sm:text-base md:text-lg lg:text-xl mb-4 sm:mb-6 md:mb-8 max-w-3xl mx-auto opacity-90 slide-up px-2 leading-relaxed">
+                            Temukan keindahan sejarah, hukum, dan ajaran Kristen melalui pembelajaran interaktif yang menginspirasi
+                        </p>
+                        <div class="flex flex-col xs:flex-row gap-2 sm:gap-3 md:gap-4 justify-center slide-up max-w-md mx-auto">
+                            <button onclick="showSection('sejarah')" class="flex-1 xs:flex-none px-4 sm:px-6 md:px-8 py-2.5 sm:py-3 md:py-4 bg-white text-purple-600 rounded-full font-semibold hover:bg-gray-100 transition-all transform hover:scale-105 text-xs sm:text-sm md:text-base">
+                                🚀 Mulai Belajar
+                            </button>
+                            <button onclick="showSection('kuis')" class="flex-1 xs:flex-none px-4 sm:px-6 md:px-8 py-2.5 sm:py-3 md:py-4 bg-transparent border-2 border-white text-white rounded-full font-semibold hover:bg-white hover:text-purple-600 transition-all text-xs sm:text-sm md:text-base">
+                                🎯 Coba Kuis
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Decorative elements -->
+                    <div class="absolute top-2 sm:top-4 md:top-6 lg:top-10 left-2 sm:left-4 md:left-6 lg:left-10 w-8 sm:w-12 md:w-16 lg:w-20 h-8 sm:h-12 md:h-16 lg:h-20 bg-white bg-opacity-10 rounded-full float-animation"></div>
+                    <div class="absolute bottom-2 sm:bottom-4 md:bottom-6 lg:bottom-10 right-2 sm:right-4 md:right-6 lg:right-10 w-6 sm:w-10 md:w-12 lg:w-16 h-6 sm:h-10 md:h-12 lg:h-16 bg-yellow-300 bg-opacity-20 rounded-full float-animation" style="animation-delay: -2s;"></div>
+                    <div class="absolute top-1/2 right-4 sm:right-8 md:right-12 lg:right-20 w-6 sm:w-8 md:w-10 lg:w-12 h-6 sm:h-8 md:h-10 lg:h-12 bg-pink-300 bg-opacity-20 rounded-full float-animation" style="animation-delay: -4s;"></div>
+                </div>
+
+                <!-- Stats Section -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 md:gap-6 mb-6 sm:mb-8 md:mb-12 lg:mb-16">
+                    <div class="text-center stats-counter bg-white rounded-lg sm:rounded-xl p-3 sm:p-4 md:p-6 shadow-sm">
+                        <div class="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold gradient-text mb-1 sm:mb-2">2000+</div>
+                        <p class="text-gray-600 text-xs sm:text-sm md:text-base">Tahun Sejarah</p>
+                    </div>
+                    <div class="text-center stats-counter bg-white rounded-lg sm:rounded-xl p-3 sm:p-4 md:p-6 shadow-sm" style="animation-delay: 0.2s;">
+                        <div class="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold gradient-text mb-1 sm:mb-2">66</div>
+                        <p class="text-gray-600 text-xs sm:text-sm md:text-base">Kitab Alkitab</p>
+                    </div>
+                    <div class="text-center stats-counter bg-white rounded-lg sm:rounded-xl p-3 sm:p-4 md:p-6 shadow-sm" style="animation-delay: 0.4s;">
+                        <div class="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold gradient-text mb-1 sm:mb-2">40+</div>
+                        <p class="text-gray-600 text-xs sm:text-sm md:text-base">Penulis Alkitab</p>
+                    </div>
+                    <div class="text-center stats-counter bg-white rounded-lg sm:rounded-xl p-3 sm:p-4 md:p-6 shadow-sm" style="animation-delay: 0.6s;">
+                        <div class="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold gradient-text mb-1 sm:mb-2">∞</div>
+                        <p class="text-gray-600 text-xs sm:text-sm md:text-base">Kasih Allah</p>
+                    </div>
+                </div>
+
+                <!-- Features Section -->
+                <div class="text-center mb-8 sm:mb-12">
+                    <h3 class="text-2xl sm:text-3xl font-bold text-gray-800 mb-3 sm:mb-4 px-2">Mengapa Memilih Platform Kami?</h3>
+                    <p class="text-base sm:text-lg text-gray-600 max-w-2xl mx-auto px-4">Pembelajaran yang dirancang khusus untuk membantu Anda memahami iman Kristen dengan cara yang menyenangkan</p>
+                </div>
+                
+                <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 mb-8 sm:mb-12 lg:mb-16">
+                    <div class="bg-white rounded-xl shadow-lg p-6 sm:p-8 card-hover cursor-pointer" onclick="handleCardClick(event, 'sejarah')">
+                        <div class="w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-blue-400 to-blue-600 rounded-2xl flex items-center justify-center mb-4 sm:mb-6 mx-auto feature-icon">
+                            <span class="text-2xl sm:text-3xl">📜</span>
+                        </div>
+                        <h3 class="text-xl sm:text-2xl font-semibold text-center mb-3 sm:mb-4 text-gray-800">Sejarah Kristen</h3>
+                        <p class="text-gray-600 text-center leading-relaxed text-sm sm:text-base">Jelajahi perjalanan iman dari masa Yesus hingga era modern dengan timeline interaktif yang menarik</p>
+                        <div class="mt-4 sm:mt-6 text-center">
+                            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs sm:text-sm bg-blue-100 text-blue-800">
+                                📚 5 Era Utama
+                            </span>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white rounded-xl shadow-lg p-6 sm:p-8 card-hover cursor-pointer" onclick="handleCardClick(event, 'alkitab')">
+                        <div class="w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-purple-400 to-purple-600 rounded-2xl flex items-center justify-center mb-4 sm:mb-6 mx-auto feature-icon">
+                            <span class="text-2xl sm:text-3xl">📖</span>
+                        </div>
+                        <h3 class="text-xl sm:text-2xl font-semibold text-center mb-3 sm:mb-4 text-gray-800">Studi Alkitab</h3>
+                        <p class="text-gray-600 text-center leading-relaxed text-sm sm:text-base">Pelajari struktur, sejarah, dan makna mendalam dari 66 kitab dalam Alkitab</p>
+                        <div class="mt-4 sm:mt-6 text-center">
+                            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs sm:text-sm bg-purple-100 text-purple-800">
+                                📚 66 Kitab
+                            </span>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white rounded-xl shadow-lg p-6 sm:p-8 card-hover cursor-pointer" onclick="handleCardClick(event, 'hukum')">
+                        <div class="w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-green-400 to-green-600 rounded-2xl flex items-center justify-center mb-4 sm:mb-6 mx-auto feature-icon">
+                            <span class="text-2xl sm:text-3xl">⚖️</span>
+                        </div>
+                        <h3 class="text-xl sm:text-2xl font-semibold text-center mb-3 sm:mb-4 text-gray-800">Hukum & Ajaran</h3>
+                        <p class="text-gray-600 text-center leading-relaxed text-sm sm:text-base">Pahami fondasi iman melalui Sepuluh Perintah, Hukum Kasih, dan Buah-buah Roh</p>
+                        <div class="mt-4 sm:mt-6 text-center">
+                            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs sm:text-sm bg-green-100 text-green-800">
+                                💎 Nilai-nilai Inti
+                            </span>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white rounded-xl shadow-lg p-6 sm:p-8 card-hover cursor-pointer" onclick="handleCardClick(event, 'doktrin')">
+                        <div class="w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-red-400 to-red-600 rounded-2xl flex items-center justify-center mb-4 sm:mb-6 mx-auto feature-icon">
+                            <span class="text-2xl sm:text-3xl">⛪</span>
+                        </div>
+                        <h3 class="text-xl sm:text-2xl font-semibold text-center mb-3 sm:mb-4 text-gray-800">Doktrin Kristen</h3>
+                        <p class="text-gray-600 text-center leading-relaxed text-sm sm:text-base">Pelajari ajaran fundamental seperti Trinitas, Keselamatan, dan Eskatologi</p>
+                        <div class="mt-4 sm:mt-6 text-center">
+                            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs sm:text-sm bg-red-100 text-red-800">
+                                🏛️ Doktrin Utama
+                            </span>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white rounded-xl shadow-lg p-6 sm:p-8 card-hover cursor-pointer" onclick="handleCardClick(event, 'kuis')">
+                        <div class="w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-yellow-400 to-orange-600 rounded-2xl flex items-center justify-center mb-4 sm:mb-6 mx-auto feature-icon">
+                            <span class="text-2xl sm:text-3xl">🧠</span>
+                        </div>
+                        <h3 class="text-xl sm:text-2xl font-semibold text-center mb-3 sm:mb-4 text-gray-800">Kuis Interaktif</h3>
+                        <p class="text-gray-600 text-center leading-relaxed text-sm sm:text-base">Uji dan perkuat pemahaman Anda dengan kuis yang menantang dan sistem penilaian</p>
+                        <div class="mt-4 sm:mt-6 text-center">
+                            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs sm:text-sm bg-yellow-100 text-orange-800">
+                                🎯 100+ Pertanyaan
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Call to Action -->
+                <div class="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-2xl sm:rounded-3xl p-6 sm:p-8 lg:p-12 text-center text-white">
+                    <h3 class="text-2xl sm:text-3xl font-bold mb-3 sm:mb-4 px-2">Siap Memulai Perjalanan Iman Anda?</h3>
+                    <p class="text-base sm:text-lg lg:text-xl mb-6 sm:mb-8 opacity-90 px-2">Bergabunglah dengan ribuan orang yang telah memperdalam pemahaman mereka tentang iman Kristen</p>
+                    <div class="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
+                        <button onclick="showSection('sejarah')" class="px-6 sm:px-8 py-3 sm:py-4 bg-white text-purple-600 rounded-full font-semibold hover:bg-gray-100 transition-all transform hover:scale-105 text-sm sm:text-base">
+                            ✨ Mulai Sekarang
+                        </button>
+                        <button onclick="showSection('kuis')" class="px-6 sm:px-8 py-3 sm:py-4 bg-transparent border-2 border-white text-white rounded-full font-semibold hover:bg-white hover:text-purple-600 transition-all text-sm sm:text-base">
+                            🏆 Tantang Diri Anda
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Sejarah Section -->
+            <section id="sejarah" class="section-content">
+                <div class="text-center mb-12">
+                    <h2 class="text-4xl font-bold gradient-text mb-4">Perjalanan Sejarah Kristen</h2>
+                    <p class="text-xl text-gray-600">Ikuti timeline perjalanan iman yang mengubah dunia</p>
+                </div>
+                
+                <div class="space-y-12">
+                    <!-- Era Perjanjian Lama -->
+                    <div class="bg-white rounded-xl shadow-lg p-8 content-card">
+                        <div class="flex items-center mb-6">
+                            <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mr-4">
+                                <span class="text-2xl">📜</span>
+                            </div>
+                            <div>
+                                <h3 class="text-2xl font-bold text-blue-600">Era Perjanjian Lama</h3>
+                                <p class="text-gray-500 font-semibold">2000 SM - 400 SM</p>
+                            </div>
+                        </div>
+                        <p class="text-gray-700 leading-relaxed mb-4">
+                            Dimulai dengan panggilan Abraham (2000 SM), pembentukan bangsa Israel, pemberian Hukum Taurat melalui Musa, masa para hakim, kerajaan Israel yang bersatu dan terpecah, hingga masa pembuangan dan kembalinya dari Babel.
+                        </p>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div class="flex items-center text-gray-600">
+                                <span class="mr-2">🌟</span>
+                                <span>Abraham dipanggil Allah (2000 SM)</span>
+                            </div>
+                            <div class="flex items-center text-gray-600">
+                                <span class="mr-2">⚖️</span>
+                                <span>Keluaran dari Mesir & Pemberian Taurat (1446 SM)</span>
+                            </div>
+                            <div class="flex items-center text-gray-600">
+                                <span class="mr-2">👑</span>
+                                <span>Kerajaan Daud & Salomo (1000-930 SM)</span>
+                            </div>
+                            <div class="flex items-center text-gray-600">
+                                <span class="mr-2">🏛️</span>
+                                <span>Pembuangan ke Babel (586 SM)</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Era Perjanjian Baru -->
+                    <div class="bg-white rounded-xl shadow-lg p-8 content-card">
+                        <div class="flex items-center mb-6">
+                            <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mr-4">
+                                <span class="text-2xl">✝️</span>
+                            </div>
+                            <div>
+                                <h3 class="text-2xl font-bold text-green-600">Era Perjanjian Baru</h3>
+                                <p class="text-gray-500 font-semibold">4 SM - 100 M</p>
+                            </div>
+                        </div>
+                        <p class="text-gray-700 leading-relaxed mb-4">
+                            Kelahiran, pelayanan, kematian, dan kebangkitan Yesus Kristus. Dimulainya gereja mula-mula pada hari Pentakosta, penyebaran Injil oleh para rasul, terutama Paulus, dan penulisan kitab-kitab Perjanjian Baru.
+                        </p>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div class="flex items-center text-gray-600">
+                                <span class="mr-2">🌟</span>
+                                <span>Kelahiran Yesus Kristus (4 SM)</span>
+                            </div>
+                            <div class="flex items-center text-gray-600">
+                                <span class="mr-2">✝️</span>
+                                <span>Penyaliban & Kebangkitan (30 M)</span>
+                            </div>
+                            <div class="flex items-center text-gray-600">
+                                <span class="mr-2">🕊️</span>
+                                <span>Hari Pentakosta - Lahirnya Gereja (30 M)</span>
+                            </div>
+                            <div class="flex items-center text-gray-600">
+                                <span class="mr-2">🌍</span>
+                                <span>Perjalanan Misi Paulus (47-67 M)</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Gereja Mula-mula -->
+                    <div class="bg-white rounded-xl shadow-lg p-8 content-card">
+                        <div class="flex items-center mb-6">
+                            <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mr-4">
+                                <span class="text-2xl">⛪</span>
+                            </div>
+                            <div>
+                                <h3 class="text-2xl font-bold text-purple-600">Gereja Mula-mula</h3>
+                                <p class="text-gray-500 font-semibold">100 - 313 M</p>
+                            </div>
+                        </div>
+                        <p class="text-gray-700 leading-relaxed mb-4">
+                            Periode penganiayaan sistematis terhadap orang Kristen oleh Kekaisaran Romawi. Meskipun menghadapi persekusi berat, gereja terus bertumbuh. Muncul para Bapa Gereja dan pembentukan doktrin-doktrin dasar Kristen.
+                        </p>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div class="flex items-center text-gray-600">
+                                <span class="mr-2">🔥</span>
+                                <span>Penganiayaan Nero (64 M)</span>
+                            </div>
+                            <div class="flex items-center text-gray-600">
+                                <span class="mr-2">⚔️</span>
+                                <span>Penganiayaan Diocletianus (303-311 M)</span>
+                            </div>
+                            <div class="flex items-center text-gray-600">
+                                <span class="mr-2">👨‍🏫</span>
+                                <span>Para Bapa Gereja (Ignatius, Polikarpus)</span>
+                            </div>
+                            <div class="flex items-center text-gray-600">
+                                <span class="mr-2">📚</span>
+                                <span>Pembentukan Kanon Alkitab</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Era Konstantinus -->
+                    <div class="bg-white rounded-xl shadow-lg p-8 content-card">
+                        <div class="flex items-center mb-6">
+                            <div class="w-16 h-16 bg-yellow-100 rounded-full flex items-center justify-center mr-4">
+                                <span class="text-2xl">👑</span>
+                            </div>
+                            <div>
+                                <h3 class="text-2xl font-bold text-yellow-600">Era Konstantinus & Konsili</h3>
+                                <p class="text-gray-500 font-semibold">313 - 800 M</p>
+                            </div>
+                        </div>
+                        <p class="text-gray-700 leading-relaxed mb-4">
+                            Kaisar Konstantinus mengeluarkan Dekrit Milano (313 M) yang memberikan kebebasan beragama. Kristen menjadi agama resmi kekaisaran. Diadakan konsili-konsili ekumenis untuk menetapkan doktrin ortodoks dan melawan bidat.
+                        </p>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div class="flex items-center text-gray-600">
+                                <span class="mr-2">📜</span>
+                                <span>Dekrit Milano - Kebebasan Beragama (313 M)</span>
+                            </div>
+                            <div class="flex items-center text-gray-600">
+                                <span class="mr-2">⚖️</span>
+                                <span>Konsili Nicea I - Pengakuan Iman (325 M)</span>
+                            </div>
+                            <div class="flex items-center text-gray-600">
+                                <span class="mr-2">🏛️</span>
+                                <span>Konsili Konstantinopel I (381 M)</span>
+                            </div>
+                            <div class="flex items-center text-gray-600">
+                                <span class="mr-2">✝️</span>
+                                <span>Konsili Chalcedon (451 M)</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Reformasi -->
+                    <div class="bg-white rounded-xl shadow-lg p-8 content-card">
+                        <div class="flex items-center mb-6">
+                            <div class="w-16 h-16 bg-pink-100 rounded-full flex items-center justify-center mr-4">
+                                <span class="text-2xl">📋</span>
+                            </div>
+                            <div>
+                                <h3 class="text-2xl font-bold text-pink-600">Reformasi Protestan</h3>
+                                <p class="text-gray-500 font-semibold">1517 - 1648 M</p>
+                            </div>
+                        </div>
+                        <p class="text-gray-700 leading-relaxed mb-4">
+                            Martin Luther memulai Reformasi dengan 95 Dalilnya (1517). Gerakan ini menekankan Sola Scriptura, Sola Fide, dan Sola Gratia. Munculnya denominasi-denominasi Protestan dan terjemahan Alkitab ke bahasa-bahasa lokal.
+                        </p>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div class="flex items-center text-gray-600">
+                                <span class="mr-2">📋</span>
+                                <span>95 Dalil Martin Luther (1517)</span>
+                            </div>
+                            <div class="flex items-center text-gray-600">
+                                <span class="mr-2">📜</span>
+                                <span>Pengakuan Iman Augsburg (1530)</span>
+                            </div>
+                            <div class="flex items-center text-gray-600">
+                                <span class="mr-2">⛪</span>
+                                <span>Konsili Trento - Kontra-Reformasi (1545-1563)</span>
+                            </div>
+                            <div class="flex items-center text-gray-600">
+                                <span class="mr-2">🕊️</span>
+                                <span>Perdamaian Westphalia (1648)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Interactive Quote -->
+                <div class="mt-16 bg-gradient-to-r from-blue-500 to-purple-600 rounded-3xl p-8 text-white text-center">
+                    <div class="text-6xl mb-4">💭</div>
+                    <blockquote class="text-2xl font-light italic mb-4">
+                        "Iman adalah dasar dari segala sesuatu yang kita harapkan dan bukti dari segala sesuatu yang tidak kita lihat."
+                    </blockquote>
+                    <cite class="text-lg opacity-90">- Ibrani 11:1</cite>
+                </div>
+            </section>
+
+            <!-- Alkitab Section -->
+            <section id="alkitab" class="section-content">
+                <div class="text-center mb-8">
+                    <h2 class="text-3xl font-bold gradient-text mb-4">Studi Alkitab Komprehensif</h2>
+                    <p class="text-lg text-gray-600">Pelajari struktur, sejarah, dan makna mendalam dari 66 kitab dalam Alkitab</p>
+                </div>
+
+                <!-- Tab Navigation -->
+                <div class="flex flex-wrap justify-center mb-8 bg-gray-100 rounded-xl p-2">
+                    <button onclick="showBibleTab('overview')" class="tab-button active px-4 py-2 rounded-lg font-semibold text-base m-1">Gambaran Umum</button>
+                    <button onclick="showBibleTab('old-testament')" class="tab-button px-4 py-2 rounded-lg font-semibold text-base m-1 text-gray-600">Perjanjian Lama</button>
+                    <button onclick="showBibleTab('new-testament')" class="tab-button px-4 py-2 rounded-lg font-semibold text-base m-1 text-gray-600">Perjanjian Baru</button>
+                    <button onclick="showBibleTab('themes')" class="tab-button px-4 py-2 rounded-lg font-semibold text-base m-1 text-gray-600">Tema Utama</button>
+                </div>
+
+                <!-- Overview Tab -->
+                <div id="overview" class="bible-tab-content active">
+                    <div class="grid md:grid-cols-2 gap-8 mb-8">
+                        <div class="bg-white rounded-xl shadow-lg p-6">
+                            <h3 class="text-2xl font-bold text-blue-600 mb-4">📊 Statistik Alkitab</h3>
+                            <div class="space-y-3">
+                                <div class="flex justify-between items-center">
+                                    <span class="text-gray-700">Total Kitab:</span>
+                                    <span class="font-bold text-blue-600">66 Kitab</span>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-gray-700">Perjanjian Lama:</span>
+                                    <span class="font-bold text-green-600">39 Kitab</span>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-gray-700">Perjanjian Baru:</span>
+                                    <span class="font-bold text-purple-600">27 Kitab</span>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-gray-700">Total Pasal:</span>
+                                    <span class="font-bold text-red-600">1,189 Pasal</span>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-gray-700">Total Ayat:</span>
+                                    <span class="font-bold text-yellow-600">31,102 Ayat</span>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-gray-700">Periode Penulisan:</span>
+                                    <span class="font-bold text-indigo-600">~1,500 Tahun</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-white rounded-xl shadow-lg p-6">
+                            <h3 class="text-2xl font-bold text-green-600 mb-4">✍️ Para Penulis</h3>
+                            <p class="text-gray-700 mb-4">Alkitab ditulis oleh lebih dari 40 penulis dari berbagai latar belakang:</p>
+                            <div class="space-y-2">
+                                <div class="flex items-center">
+                                    <span class="w-3 h-3 bg-blue-500 rounded-full mr-3"></span>
+                                    <span class="text-sm">Raja (Daud, Salomo)</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <span class="w-3 h-3 bg-green-500 rounded-full mr-3"></span>
+                                    <span class="text-sm">Nabi (Yesaya, Yeremia, Ezekiel)</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <span class="w-3 h-3 bg-purple-500 rounded-full mr-3"></span>
+                                    <span class="text-sm">Rasul (Paulus, Petrus, Yohanes)</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <span class="w-3 h-3 bg-red-500 rounded-full mr-3"></span>
+                                    <span class="text-sm">Dokter (Lukas)</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <span class="w-3 h-3 bg-yellow-500 rounded-full mr-3"></span>
+                                    <span class="text-sm">Gembala (Amos)</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <span class="w-3 h-3 bg-indigo-500 rounded-full mr-3"></span>
+                                    <span class="text-sm">Pemungut Cukai (Matius)</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-gradient-to-r from-blue-500 to-purple-600 rounded-xl p-8 text-white text-center">
+                        <h3 class="text-2xl font-bold mb-4">🎯 Tema Sentral Alkitab</h3>
+                        <p class="text-lg mb-6">Alkitab memiliki satu tema utama yang mengalir dari Kejadian hingga Wahyu:</p>
+                        <div class="bg-white bg-opacity-20 rounded-lg p-6">
+                            <h4 class="text-xl font-bold mb-3">Rencana Keselamatan Allah</h4>
+                            <p class="text-base leading-relaxed">
+                                Dari kejatuhan manusia dalam dosa (Kejadian 3) hingga penebusan melalui Yesus Kristus dan pemulihan segala sesuatu (Wahyu 21-22). 
+                                Alkitab adalah kisah kasih Allah yang tidak pernah berubah untuk umat manusia.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Old Testament Tab -->
+                <div id="old-testament" class="bible-tab-content">
+                    <div class="mb-8">
+                        <h3 class="text-2xl font-bold text-green-600 mb-4">📜 Perjanjian Lama (39 Kitab)</h3>
+                        <p class="text-gray-700 mb-6">Perjanjian Lama ditulis dalam bahasa Ibrani dan Aram, mencakup periode dari penciptaan hingga sekitar 400 SM.</p>
+                    </div>
+
+                    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <!-- Taurat/Pentateukh -->
+                        <div class="bg-white rounded-xl shadow-lg p-6">
+                            <div class="flex items-center mb-4">
+                                <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mr-3">
+                                    <span class="text-xl">📜</span>
+                                </div>
+                                <h4 class="text-xl font-bold text-blue-600">Taurat (5 Kitab)</h4>
+                            </div>
+                            <p class="text-gray-600 text-sm mb-4">Hukum Musa - Fondasi iman Yahudi dan Kristen</p>
+                            <ul class="space-y-1 text-sm">
+                                <li class="flex items-center"><span class="w-2 h-2 bg-blue-500 rounded-full mr-2"></span>Kejadian</li>
+                                <li class="flex items-center"><span class="w-2 h-2 bg-blue-500 rounded-full mr-2"></span>Keluaran</li>
+                                <li class="flex items-center"><span class="w-2 h-2 bg-blue-500 rounded-full mr-2"></span>Imamat</li>
+                                <li class="flex items-center"><span class="w-2 h-2 bg-blue-500 rounded-full mr-2"></span>Bilangan</li>
+                                <li class="flex items-center"><span class="w-2 h-2 bg-blue-500 rounded-full mr-2"></span>Ulangan</li>
+                            </ul>
+                        </div>
+
+                        <!-- Kitab Sejarah -->
+                        <div class="bg-white rounded-xl shadow-lg p-6">
+                            <div class="flex items-center mb-4">
+                                <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mr-3">
+                                    <span class="text-xl">🏛️</span>
+                                </div>
+                                <h4 class="text-xl font-bold text-green-600">Sejarah (12 Kitab)</h4>
+                            </div>
+                            <p class="text-gray-600 text-sm mb-4">Sejarah bangsa Israel dari Yosua hingga pembuangan</p>
+                            <ul class="space-y-1 text-sm">
+                                <li class="flex items-center"><span class="w-2 h-2 bg-green-500 rounded-full mr-2"></span>Yosua</li>
+                                <li class="flex items-center"><span class="w-2 h-2 bg-green-500 rounded-full mr-2"></span>Hakim-hakim</li>
+                                <li class="flex items-center"><span class="w-2 h-2 bg-green-500 rounded-full mr-2"></span>Rut</li>
+                                <li class="flex items-center"><span class="w-2 h-2 bg-green-500 rounded-full mr-2"></span>1-2 Samuel</li>
+                                <li class="flex items-center"><span class="w-2 h-2 bg-green-500 rounded-full mr-2"></span>1-2 Raja-raja</li>
+                                <li class="flex items-center"><span class="w-2 h-2 bg-green-500 rounded-full mr-2"></span>1-2 Tawarikh</li>
+                                <li class="flex items-center"><span class="w-2 h-2 bg-green-500 rounded-full mr-2"></span>Ezra, Nehemia, Ester</li>
+                            </ul>
+                        </div>
+
+                        <!-- Kitab Puisi -->
+                        <div class="bg-white rounded-xl shadow-lg p-6">
+                            <div class="flex items-center mb-4">
+                                <div class="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mr-3">
+                                    <span class="text-xl">🎵</span>
+                                </div>
+                                <h4 class="text-xl font-bold text-purple-600">Puisi (5 Kitab)</h4>
+                            </div>
+                            <p class="text-gray-600 text-sm mb-4">Sastra kebijaksanaan dan pujian</p>
+                            <ul class="space-y-1 text-sm">
+                                <li class="flex items-center"><span class="w-2 h-2 bg-purple-500 rounded-full mr-2"></span>Ayub</li>
+                                <li class="flex items-center"><span class="w-2 h-2 bg-purple-500 rounded-full mr-2"></span>Mazmur</li>
+                                <li class="flex items-center"><span class="w-2 h-2 bg-purple-500 rounded-full mr-2"></span>Amsal</li>
+                                <li class="flex items-center"><span class="w-2 h-2 bg-purple-500 rounded-full mr-2"></span>Pengkhotbah</li>
+                                <li class="flex items-center"><span class="w-2 h-2 bg-purple-500 rounded-full mr-2"></span>Kidung Agung</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- New Testament Tab -->
+                <div id="new-testament" class="bible-tab-content">
+                    <div class="mb-8">
+                        <h3 class="text-2xl font-bold text-purple-600 mb-4">✝️ Perjanjian Baru (27 Kitab)</h3>
+                        <p class="text-gray-700 mb-6">Perjanjian Baru ditulis dalam bahasa Yunani, mencakup kehidupan Yesus dan perkembangan gereja mula-mula.</p>
+                    </div>
+
+                    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <!-- Injil -->
+                        <div class="bg-white rounded-xl shadow-lg p-6">
+                            <div class="flex items-center mb-4">
+                                <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mr-3">
+                                    <span class="text-xl">✝️</span>
+                                </div>
+                                <h4 class="text-xl font-bold text-blue-600">Injil (4 Kitab)</h4>
+                            </div>
+                            <p class="text-gray-600 text-sm mb-4">Kehidupan, pelayanan, kematian, dan kebangkitan Yesus</p>
+                            <ul class="space-y-2 text-sm">
+                                <li class="flex items-center"><span class="w-2 h-2 bg-blue-500 rounded-full mr-2"></span><strong>Matius:</strong> Yesus sebagai Raja</li>
+                                <li class="flex items-center"><span class="w-2 h-2 bg-blue-500 rounded-full mr-2"></span><strong>Markus:</strong> Yesus sebagai Hamba</li>
+                                <li class="flex items-center"><span class="w-2 h-2 bg-blue-500 rounded-full mr-2"></span><strong>Lukas:</strong> Yesus sebagai Manusia</li>
+                                <li class="flex items-center"><span class="w-2 h-2 bg-blue-500 rounded-full mr-2"></span><strong>Yohanes:</strong> Yesus sebagai Allah</li>
+                            </ul>
+                        </div>
+
+                        <!-- Sejarah -->
+                        <div class="bg-white rounded-xl shadow-lg p-6">
+                            <div class="flex items-center mb-4">
+                                <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mr-3">
+                                    <span class="text-xl">🏛️</span>
+                                </div>
+                                <h4 class="text-xl font-bold text-green-600">Sejarah (1 Kitab)</h4>
+                            </div>
+                            <p class="text-gray-600 text-sm mb-4">Sejarah gereja mula-mula</p>
+                            <ul class="space-y-2 text-sm">
+                                <li class="flex items-center"><span class="w-2 h-2 bg-green-500 rounded-full mr-2"></span><strong>Kisah Para Rasul:</strong> Penyebaran Injil dari Yerusalem ke Roma</li>
+                            </ul>
+                        </div>
+
+                        <!-- Surat Paulus -->
+                        <div class="bg-white rounded-xl shadow-lg p-6">
+                            <div class="flex items-center mb-4">
+                                <div class="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mr-3">
+                                    <span class="text-xl">✉️</span>
+                                </div>
+                                <h4 class="text-xl font-bold text-purple-600">Surat Paulus (13 Kitab)</h4>
+                            </div>
+                            <p class="text-gray-600 text-sm mb-4">Ajaran teologi dan praktis untuk gereja</p>
+                            <div class="grid grid-cols-1 gap-1 text-sm">
+                                <div class="flex items-center"><span class="w-2 h-2 bg-purple-500 rounded-full mr-2"></span>Roma</div>
+                                <div class="flex items-center"><span class="w-2 h-2 bg-purple-500 rounded-full mr-2"></span>1-2 Korintus</div>
+                                <div class="flex items-center"><span class="w-2 h-2 bg-purple-500 rounded-full mr-2"></span>Galatia</div>
+                                <div class="flex items-center"><span class="w-2 h-2 bg-purple-500 rounded-full mr-2"></span>Efesus</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Themes Tab -->
+                <div id="themes" class="bible-tab-content">
+                    <div class="mb-8">
+                        <h3 class="text-2xl font-bold text-indigo-600 mb-4">🎯 Tema-tema Utama Alkitab</h3>
+                        <p class="text-gray-700 mb-6">Alkitab memiliki tema-tema yang saling berkaitan dan membentuk satu kesatuan cerita keselamatan.</p>
+                    </div>
+
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div class="space-y-6">
+                            <!-- Kasih Allah -->
+                            <div class="bg-white rounded-xl shadow-lg p-6">
+                                <div class="flex items-center mb-4">
+                                    <div class="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center mr-3">
+                                        <span class="text-xl">❤️</span>
+                                    </div>
+                                    <h4 class="text-xl font-bold text-red-600">Kasih Allah</h4>
+                                </div>
+                                <p class="text-gray-700 mb-3">Tema sentral yang mengalir dari Kejadian hingga Wahyu.</p>
+                                <div class="bg-red-50 p-3 rounded-lg">
+                                    <p class="text-sm text-red-700 italic">"Karena begitu besar kasih Allah akan dunia ini, sehingga Ia telah mengaruniakan Anak-Nya yang tunggal, supaya setiap orang yang percaya kepada-Nya tidak binasa, melainkan beroleh hidup yang kekal." - Yohanes 3:16</p>
+                                </div>
+                            </div>
+
+                            <!-- Keselamatan -->
+                            <div class="bg-white rounded-xl shadow-lg p-6">
+                                <div class="flex items-center mb-4">
+                                    <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mr-3">
+                                        <span class="text-xl">✝️</span>
+                                    </div>
+                                    <h4 class="text-xl font-bold text-green-600">Keselamatan</h4>
+                                </div>
+                                <p class="text-gray-700 mb-3">Rencana Allah untuk menyelamatkan manusia dari dosa.</p>
+                                <div class="space-y-2 text-sm">
+                                    <div class="flex items-center"><span class="w-2 h-2 bg-green-500 rounded-full mr-2"></span>Dijanjikan (Kejadian 3:15)</div>
+                                    <div class="flex items-center"><span class="w-2 h-2 bg-green-500 rounded-full mr-2"></span>Dinubuatkan (Yesaya 53)</div>
+                                    <div class="flex items-center"><span class="w-2 h-2 bg-green-500 rounded-full mr-2"></span>Digenapi (Injil)</div>
+                                    <div class="flex items-center"><span class="w-2 h-2 bg-green-500 rounded-full mr-2"></span>Diberitakan (Kisah Para Rasul)</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="space-y-6">
+                            <!-- Kerajaan Allah -->
+                            <div class="bg-white rounded-xl shadow-lg p-6">
+                                <div class="flex items-center mb-4">
+                                    <div class="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mr-3">
+                                        <span class="text-xl">👑</span>
+                                    </div>
+                                    <h4 class="text-xl font-bold text-purple-600">Kerajaan Allah</h4>
+                                </div>
+                                <p class="text-gray-700 mb-3">Pemerintahan Allah atas ciptaan-Nya.</p>
+                                <div class="space-y-2 text-sm">
+                                    <div class="flex items-center"><span class="w-2 h-2 bg-purple-500 rounded-full mr-2"></span>Kerajaan yang dijanjikan</div>
+                                    <div class="flex items-center"><span class="w-2 h-2 bg-purple-500 rounded-full mr-2"></span>Kerajaan yang hadir (Yesus)</div>
+                                    <div class="flex items-center"><span class="w-2 h-2 bg-purple-500 rounded-full mr-2"></span>Kerajaan yang akan datang</div>
+                                </div>
+                            </div>
+
+                            <!-- Kekudusan -->
+                            <div class="bg-white rounded-xl shadow-lg p-6">
+                                <div class="flex items-center mb-4">
+                                    <div class="w-12 h-12 bg-yellow-100 rounded-full flex items-center justify-center mr-3">
+                                        <span class="text-xl">✨</span>
+                                    </div>
+                                    <h4 class="text-xl font-bold text-yellow-600">Kekudusan</h4>
+                                </div>
+                                <p class="text-gray-700 mb-3">Panggilan untuk hidup kudus seperti Allah.</p>
+                                <div class="bg-yellow-50 p-3 rounded-lg">
+                                    <p class="text-sm text-yellow-700 italic">"Kuduslah kamu, sebab Aku kudus." - 1 Petrus 1:16</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Hukum Section -->
+            <section id="hukum" class="section-content">
+                <div class="text-center mb-8">
+                    <h2 class="text-3xl font-bold text-gray-800 mb-4">Hukum dan Ajaran Kristen</h2>
+                    <p class="text-lg text-gray-600">Pelajari fondasi moral dan spiritual iman Kristen</p>
+                </div>
+                
+                <div class="space-y-8">
+                    <!-- Sepuluh Perintah Allah -->
+                    <div class="bg-white rounded-xl shadow-lg p-6">
+                        <h3 class="text-2xl font-semibold text-green-600 mb-4 flex items-center">
+                            <span class="text-2xl mr-3">⚖️</span>
+                            Sepuluh Perintah Allah (Keluaran 20:1-17)
+                        </h3>
+                        <p class="text-gray-700 mb-4">Hukum fundamental yang diberikan Allah kepada Musa di Gunung Sinai, menjadi dasar moral bagi umat manusia:</p>
+                        
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div class="space-y-3">
+                                <h4 class="font-bold text-gray-800 text-lg mb-3">Hubungan dengan Allah (1-4):</h4>
+                                <div class="space-y-2">
+                                    <div class="flex items-start">
+                                        <span class="bg-blue-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold mr-3 mt-0.5">1</span>
+                                        <div>
+                                            <p class="font-semibold text-gray-800">Tidak ada allah lain</p>
+                                            <p class="text-sm text-gray-600">"Jangan ada padamu allah lain di hadapan-Ku"</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start">
+                                        <span class="bg-blue-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold mr-3 mt-0.5">2</span>
+                                        <div>
+                                            <p class="font-semibold text-gray-800">Tidak membuat patung</p>
+                                            <p class="text-sm text-gray-600">"Jangan membuat bagimu patung yang menyerupai apa pun"</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start">
+                                        <span class="bg-blue-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold mr-3 mt-0.5">3</span>
+                                        <div>
+                                            <p class="font-semibold text-gray-800">Tidak menyebut nama Tuhan dengan sia-sia</p>
+                                            <p class="text-sm text-gray-600">"Jangan menyebut nama TUHAN, Allahmu, dengan sembarangan"</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start">
+                                        <span class="bg-blue-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold mr-3 mt-0.5">4</span>
+                                        <div>
+                                            <p class="font-semibold text-gray-800">Menguduskan hari Sabat</p>
+                                            <p class="text-sm text-gray-600">"Ingatlah dan kuduskanlah hari Sabat"</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="space-y-3">
+                                <h4 class="font-bold text-gray-800 text-lg mb-3">Hubungan dengan Sesama (5-10):</h4>
+                                <div class="space-y-2">
+                                    <div class="flex items-start">
+                                        <span class="bg-green-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold mr-3 mt-0.5">5</span>
+                                        <div>
+                                            <p class="font-semibold text-gray-800">Hormat kepada orang tua</p>
+                                            <p class="text-sm text-gray-600">"Hormatilah ayahmu dan ibumu"</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start">
+                                        <span class="bg-green-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold mr-3 mt-0.5">6</span>
+                                        <div>
+                                            <p class="font-semibold text-gray-800">Jangan membunuh</p>
+                                            <p class="text-sm text-gray-600">"Jangan membunuh"</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start">
+                                        <span class="bg-green-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold mr-3 mt-0.5">7</span>
+                                        <div>
+                                            <p class="font-semibold text-gray-800">Jangan berzina</p>
+                                            <p class="text-sm text-gray-600">"Jangan berzina"</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start">
+                                        <span class="bg-green-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold mr-3 mt-0.5">8</span>
+                                        <div>
+                                            <p class="font-semibold text-gray-800">Jangan mencuri</p>
+                                            <p class="text-sm text-gray-600">"Jangan mencuri"</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start">
+                                        <span class="bg-green-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold mr-3 mt-0.5">9</span>
+                                        <div>
+                                            <p class="font-semibold text-gray-800">Jangan bersaksi dusta</p>
+                                            <p class="text-sm text-gray-600">"Jangan mengucapkan saksi dusta tentang sesamamu"</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start">
+                                        <span class="bg-green-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold mr-3 mt-0.5">10</span>
+                                        <div>
+                                            <p class="font-semibold text-gray-800">Jangan mengingini milik orang lain</p>
+                                            <p class="text-sm text-gray-600">"Jangan mengingini apa pun yang dipunyai sesamamu"</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Hukum Kasih -->
+                    <div class="bg-white rounded-xl shadow-lg p-6">
+                        <h3 class="text-2xl font-semibold text-red-600 mb-4 flex items-center">
+                            <span class="text-2xl mr-3">❤️</span>
+                            Hukum Kasih (Matius 22:37-39)
+                        </h3>
+                        <p class="text-gray-700 leading-relaxed mb-4">
+                            Yesus merangkum seluruh hukum Taurat dan para nabi dalam dua perintah utama yang dikenal sebagai Hukum Kasih:
+                        </p>
+                        <div class="space-y-4">
+                            <div class="bg-red-50 p-6 rounded-lg border-l-4 border-red-500">
+                                <h4 class="font-bold text-red-800 mb-2 text-lg">Hukum Pertama:</h4>
+                                <p class="text-lg font-semibold text-red-800 mb-2">"Kasihilah Tuhan, Allahmu, dengan segenap hatimu dan dengan segenap jiwamu dan dengan segenap akal budimu."</p>
+                                <p class="text-red-700">Ini adalah hukum yang terutama dan yang pertama. Kasih kepada Allah harus menjadi prioritas utama dalam hidup kita.</p>
+                            </div>
+                            <div class="bg-red-50 p-6 rounded-lg border-l-4 border-red-500">
+                                <h4 class="font-bold text-red-800 mb-2 text-lg">Hukum Kedua:</h4>
+                                <p class="text-lg font-semibold text-red-800 mb-2">"Dan hukum yang kedua, yang sama dengan itu, ialah: Kasihilah sesamamu manusia seperti dirimu sendiri."</p>
+                                <p class="text-red-700">Kasih kepada sesama adalah bukti nyata dari kasih kita kepada Allah. Kedua hukum ini tidak dapat dipisahkan.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Buah-buah Roh -->
+                    <div class="bg-white rounded-xl shadow-lg p-6">
+                        <h3 class="text-2xl font-semibold text-purple-600 mb-4 flex items-center">
+                            <span class="text-2xl mr-3">🍇</span>
+                            Buah-buah Roh (Galatia 5:22-23)
+                        </h3>
+                        <p class="text-gray-700 mb-4">Karakteristik yang harus dimiliki setiap orang Kristen sebagai hasil dari kehidupan yang dipimpin oleh Roh Kudus:</p>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            <div class="text-center p-6 bg-red-50 rounded-lg border border-red-200">
+                                <span class="text-4xl mb-3 block">💝</span>
+                                <h4 class="font-bold text-lg text-red-600 mb-2">Kasih (Agape)</h4>
+                                <p class="text-sm text-gray-600">Kasih tanpa syarat seperti kasih Allah kepada manusia</p>
+                            </div>
+                            <div class="text-center p-6 bg-yellow-50 rounded-lg border border-yellow-200">
+                                <span class="text-4xl mb-3 block">😊</span>
+                                <h4 class="font-bold text-lg text-yellow-600 mb-2">Sukacita (Chara)</h4>
+                                <p class="text-sm text-gray-600">Kegembiraan yang berasal dari Allah, tidak bergantung pada keadaan</p>
+                            </div>
+                            <div class="text-center p-6 bg-blue-50 rounded-lg border border-blue-200">
+                                <span class="text-4xl mb-3 block">🕊️</span>
+                                <h4 class="font-bold text-lg text-blue-600 mb-2">Damai Sejahtera (Eirene)</h4>
+                                <p class="text-sm text-gray-600">Kedamaian yang melampaui akal budi manusia</p>
+                            </div>
+                            <div class="text-center p-6 bg-green-50 rounded-lg border border-green-200">
+                                <span class="text-4xl mb-3 block">⏰</span>
+                                <h4 class="font-bold text-lg text-green-600 mb-2">Kesabaran (Makrothumia)</h4>
+                                <p class="text-sm text-gray-600">Kemampuan untuk bertahan dalam kesulitan tanpa menyerah</p>
+                            </div>
+                            <div class="text-center p-6 bg-pink-50 rounded-lg border border-pink-200">
+                                <span class="text-4xl mb-3 block">🤝</span>
+                                <h4 class="font-bold text-lg text-pink-600 mb-2">Kemurahan (Chrestotes)</h4>
+                                <p class="text-sm text-gray-600">Kebaikan hati yang dinyatakan dalam tindakan</p>
+                            </div>
+                            <div class="text-center p-6 bg-indigo-50 rounded-lg border border-indigo-200">
+                                <span class="text-4xl mb-3 block">❤️</span>
+                                <h4 class="font-bold text-lg text-indigo-600 mb-2">Kebaikan (Agathosune)</h4>
+                                <p class="text-sm text-gray-600">Kebaikan yang aktif dan bermanfaat bagi orang lain</p>
+                            </div>
+                            <div class="text-center p-6 bg-teal-50 rounded-lg border border-teal-200">
+                                <span class="text-4xl mb-3 block">🙏</span>
+                                <h4 class="font-bold text-lg text-teal-600 mb-2">Kesetiaan (Pistis)</h4>
+                                <p class="text-sm text-gray-600">Dapat diandalkan dan teguh dalam komitmen</p>
+                            </div>
+                            <div class="text-center p-6 bg-orange-50 rounded-lg border border-orange-200">
+                                <span class="text-4xl mb-3 block">🕊️</span>
+                                <h4 class="font-bold text-lg text-orange-600 mb-2">Kelemahlembutan (Prautes)</h4>
+                                <p class="text-sm text-gray-600">Kekuatan yang terkendali, tidak kasar atau sombong</p>
+                            </div>
+                            <div class="text-center p-6 bg-gray-50 rounded-lg border border-gray-200">
+                                <span class="text-4xl mb-3 block">🎯</span>
+                                <h4 class="font-bold text-lg text-gray-600 mb-2">Penguasaan Diri (Egkrateia)</h4>
+                                <p class="text-sm text-gray-600">Kemampuan mengendalikan diri dan nafsu</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Doktrin Section -->
+            <section id="doktrin" class="section-content">
+                <div class="text-center mb-8">
+                    <h2 class="text-3xl font-bold gradient-text mb-4">Doktrin Kristen Fundamental</h2>
+                    <p class="text-lg text-gray-600">Pelajari ajaran-ajaran dasar iman Kristen yang telah dipegang selama berabad-abad</p>
+                </div>
+
+                <div class="space-y-8">
+                    <!-- Trinitas -->
+                    <div class="bg-white rounded-xl shadow-lg p-6">
+                        <h3 class="text-2xl font-semibold text-blue-600 mb-4 flex items-center">
+                            <span class="text-2xl mr-3">🔺</span>
+                            Doktrin Trinitas
+                        </h3>
+                        <p class="text-gray-700 mb-4">Allah adalah satu dalam esensi namun tiga dalam pribadi: Bapa, Putra, dan Roh Kudus.</p>
+                        <div class="grid md:grid-cols-3 gap-4">
+                            <div class="bg-blue-50 p-4 rounded-lg text-center">
+                                <h4 class="font-bold text-blue-800 mb-2">Allah Bapa</h4>
+                                <p class="text-sm text-blue-700">Pencipta dan Pemelihara alam semesta</p>
+                            </div>
+                            <div class="bg-green-50 p-4 rounded-lg text-center">
+                                <h4 class="font-bold text-green-800 mb-2">Allah Putra (Yesus)</h4>
+                                <p class="text-sm text-green-700">Penebus dan Juruselamat dunia</p>
+                            </div>
+                            <div class="bg-purple-50 p-4 rounded-lg text-center">
+                                <h4 class="font-bold text-purple-800 mb-2">Allah Roh Kudus</h4>
+                                <p class="text-sm text-purple-700">Penghibur dan Pembimbing orang percaya</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Keselamatan -->
+                    <div class="bg-white rounded-xl shadow-lg p-6">
+                        <h3 class="text-2xl font-semibold text-green-600 mb-4 flex items-center">
+                            <span class="text-2xl mr-3">✝️</span>
+                            Doktrin Keselamatan (Soteriologi)
+                        </h3>
+                        <p class="text-gray-700 mb-4">Keselamatan adalah anugerah Allah melalui iman kepada Yesus Kristus, bukan karena perbuatan baik.</p>
+                        <div class="space-y-3">
+                            <div class="flex items-center">
+                                <span class="w-3 h-3 bg-green-500 rounded-full mr-3"></span>
+                                <span><strong>Sola Gratia:</strong> Hanya oleh kasih karunia</span>
+                            </div>
+                            <div class="flex items-center">
+                                <span class="w-3 h-3 bg-green-500 rounded-full mr-3"></span>
+                                <span><strong>Sola Fide:</strong> Hanya oleh iman</span>
+                            </div>
+                            <div class="flex items-center">
+                                <span class="w-3 h-3 bg-green-500 rounded-full mr-3"></span>
+                                <span><strong>Solus Christus:</strong> Hanya melalui Kristus</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Alkitab -->
+                    <div class="bg-white rounded-xl shadow-lg p-6">
+                        <h3 class="text-2xl font-semibold text-purple-600 mb-4 flex items-center">
+                            <span class="text-2xl mr-3">📖</span>
+                            Doktrin Alkitab (Bibliologi)
+                        </h3>
+                        <p class="text-gray-700 mb-4">Alkitab adalah Firman Allah yang diilhamkan, tidak ada kesalahan, dan merupakan otoritas tertinggi dalam iman dan kehidupan.</p>
+                        <div class="bg-purple-50 p-4 rounded-lg">
+                            <p class="text-purple-700 italic">"Segala tulisan yang diilhamkan Allah memang bermanfaat untuk mengajar, untuk menyatakan kesalahan, untuk memperbaiki kelakuan dan untuk mendidik orang dalam kebenaran." - 2 Timotius 3:16</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Kuis Section -->
+            <section id="kuis" class="section-content">
+                <div class="text-center mb-8">
+                    <h2 class="text-3xl font-bold gradient-text mb-4">Kuis Pembelajaran Kristen</h2>
+                    <p class="text-lg text-gray-600">Uji pemahaman Anda tentang iman Kristen dengan berbagai tingkat kesulitan</p>
+                </div>
+
+                <div id="quizContainer" class="bg-white rounded-xl shadow-lg p-8">
+                    <div id="quizStart" class="text-center">
+                        <div class="text-6xl mb-6">🧠</div>
+                        <h3 class="text-2xl font-bold mb-6">Pilih Level Kesulitan</h3>
+                        <p class="text-gray-600 mb-8">Setiap level memiliki 10 pertanyaan dengan tingkat kesulitan yang berbeda</p>
+                        
+                        <div class="grid md:grid-cols-3 gap-6 mb-8">
+                            <!-- Level Mudah -->
+                            <div class="bg-green-50 border-2 border-green-200 rounded-xl p-6 cursor-pointer hover:border-green-400 transition-all transform hover:scale-105" onclick="selectLevel('mudah')">
+                                <div class="text-4xl mb-4">🌱</div>
+                                <h4 class="text-xl font-bold text-green-600 mb-2">Level Mudah</h4>
+                                <p class="text-sm text-green-700 mb-4">Pertanyaan dasar tentang iman Kristen</p>
+                                <div class="flex items-center justify-center space-x-1">
+                                    <span class="w-3 h-3 bg-green-400 rounded-full"></span>
+                                    <span class="w-3 h-3 bg-gray-300 rounded-full"></span>
+                                    <span class="w-3 h-3 bg-gray-300 rounded-full"></span>
+                                </div>
+                            </div>
+                            
+                            <!-- Level Sedang -->
+                            <div class="bg-yellow-50 border-2 border-yellow-200 rounded-xl p-6 cursor-pointer hover:border-yellow-400 transition-all transform hover:scale-105" onclick="selectLevel('sedang')">
+                                <div class="text-4xl mb-4">🔥</div>
+                                <h4 class="text-xl font-bold text-yellow-600 mb-2">Level Sedang</h4>
+                                <p class="text-sm text-yellow-700 mb-4">Pertanyaan menengah untuk yang sudah belajar</p>
+                                <div class="flex items-center justify-center space-x-1">
+                                    <span class="w-3 h-3 bg-yellow-400 rounded-full"></span>
+                                    <span class="w-3 h-3 bg-yellow-400 rounded-full"></span>
+                                    <span class="w-3 h-3 bg-gray-300 rounded-full"></span>
+                                </div>
+                            </div>
+                            
+                            <!-- Level Sulit -->
+                            <div class="bg-red-50 border-2 border-red-200 rounded-xl p-6 cursor-pointer hover:border-red-400 transition-all transform hover:scale-105" onclick="selectLevel('sulit')">
+                                <div class="text-4xl mb-4">⚡</div>
+                                <h4 class="text-xl font-bold text-red-600 mb-2">Level Sulit</h4>
+                                <p class="text-sm text-red-700 mb-4">Tantangan untuk ahli teologi</p>
+                                <div class="flex items-center justify-center space-x-1">
+                                    <span class="w-3 h-3 bg-red-400 rounded-full"></span>
+                                    <span class="w-3 h-3 bg-red-400 rounded-full"></span>
+                                    <span class="w-3 h-3 bg-red-400 rounded-full"></span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div id="selectedLevel" class="hidden">
+                            <div class="bg-gray-50 rounded-lg p-4 mb-6">
+                                <p class="text-gray-600">Level yang dipilih: <span id="levelName" class="font-bold"></span></p>
+                            </div>
+                            <button onclick="startQuiz()" class="px-8 py-4 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-full font-semibold hover:from-blue-600 hover:to-purple-700 transition-all transform hover:scale-105">
+                                🚀 Mulai Kuis
+                            </button>
+                        </div>
+                    </div>
+
+                    <div id="quizQuestion" class="hidden">
+                        <div class="mb-6">
+                            <div class="flex justify-between items-center mb-4">
+                                <span class="text-sm text-gray-500">Pertanyaan <span id="currentQuestion">1</span> dari 10</span>
+                                <span class="text-sm text-gray-500">Level: <span id="currentLevelDisplay"></span></span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2">
+                                <div id="progressBar" class="bg-gradient-to-r from-blue-500 to-purple-600 h-2 rounded-full progress-bar" style="width: 10%"></div>
+                            </div>
+                        </div>
+
+                        <h3 id="questionText" class="text-xl font-semibold mb-6"></h3>
+                        
+                        <div id="answerOptions" class="space-y-3">
+                            <!-- Options will be inserted here -->
+                        </div>
+
+                        <div class="mt-6 text-center">
+                            <button id="nextButton" onclick="nextQuestion()" class="hidden px-6 py-3 bg-green-500 text-white rounded-lg font-semibold hover:bg-green-600 transition-colors">
+                                Lanjut
+                            </button>
+                        </div>
+                    </div>
+
+                    <div id="quizResult" class="hidden text-center">
+                        <div id="resultIcon" class="text-6xl mb-4"></div>
+                        <h3 id="resultTitle" class="text-2xl font-bold mb-4"></h3>
+                        <p id="resultMessage" class="text-gray-600 mb-6"></p>
+                        <div class="bg-gray-50 rounded-lg p-6 mb-6">
+                            <div class="text-3xl font-bold gradient-text mb-2" id="finalScore"></div>
+                            <p class="text-gray-600">Skor Akhir</p>
+                        </div>
+                        <button onclick="restartQuiz()" class="px-8 py-4 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-full font-semibold hover:from-blue-600 hover:to-purple-700 transition-all transform hover:scale-105">
+                            🔄 Coba Lagi
+                        </button>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+<script src="main.js"></script>
+</body>
+</html>
